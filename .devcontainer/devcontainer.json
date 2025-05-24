@@ -41,5 +41,7 @@
     "runArgs": ["--privileged"],
     "mounts": [
         "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-    ]
+    ],
+    "forwardPorts": [5173],
+    "appPort": ["5173:5173"]
 }
