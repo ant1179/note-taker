@@ -11,6 +11,29 @@
             "zsh": {
                 "path": "/usr/bin/zsh"
             }
+        },
+        "explorer.fileNesting.enabled": true,
+        "explorer.fileNesting.patterns": {
+            "tsconfig.json": "tsconfig.*.json, env.d.ts",
+            "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+            "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .prettier*, prettier*, .editorconfig"
+        },
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Vue.volar",
+                "vitest.explorer",
+                "ms-playwright.playwright",
+                "dbaeumer.vscode-eslint",
+                "EditorConfig.EditorConfig",
+                "esbenp.prettier-vscode"
+            ]
         }
     },
     "postCreateCommand": ".devcontainer/install-dependencies.sh",
