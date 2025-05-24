@@ -14,4 +14,5 @@ services:
 
 volumes:
   mongodb_data:
-    name: note-taker-mongodb-data
+    name: note-taker-data
+    external: true

@@ -1,15 +1,22 @@
 {
-  "name": "note-taker",
-  "image" :  "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {},
-  "onCreateCommand": "sudo chsh -s /usr/bin/zsh $USER",
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.profiles.linux": {
-      "zsh": {
-        "path": "/usr/bin/zsh"
-      }
-    }
-  },
-  "postCreateCommand": "./install-dependencies.sh"
+    "name": "note-taker",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "onCreateCommand": "sudo chsh -s /usr/bin/zsh $USER",
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+            "zsh": {
+                "path": "/usr/bin/zsh"
+            }
+        }
+    },
+    "postCreateCommand": "./install-dependencies.sh",
+    "remoteUser": "vscode",
+    "runArgs": ["--privileged"],
+    "mounts": [
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ]
 }
