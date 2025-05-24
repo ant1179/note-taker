@@ -13,7 +13,7 @@
             }
         }
     },
-    "postCreateCommand": "./install-dependencies.sh",
+    "postCreateCommand": ".devcontainer/install-dependencies.sh",
     "remoteUser": "vscode",
     "runArgs": ["--privileged"],
     "mounts": [
