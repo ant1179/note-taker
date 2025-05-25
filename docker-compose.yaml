@@ -1,16 +1,30 @@
 services:
-  db:
-    container_name: note-taker-db
-    image: mongo:latest
-    restart: always
-    environment:
-      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
-    ports:
-      - "27017:27017"
+  client:
+    stdin_open: true
+    tty: true
+    build:
+      context: client
+      dockerfile: Dockerfile
     volumes:
-      - mongodb_data:/data/db
+      - type: bind
+        source: ./client
+        target: /app
+      - type: volume
+        target: /app/node_modules
+    ports:
+      - "8080:5173"
+  db:
+   container_name: note-taker-db
+   image: mongo:latest
+   restart: always
+   environment:
+     MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
+     MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
+     MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+   ports:
+     - "27017:27017"
+   volumes:
+     - mongodb_data:/data/db
 
 volumes:
   mongodb_data:
