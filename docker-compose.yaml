@@ -1,18 +1,34 @@
 services:
-  client:
-    stdin_open: true
-    tty: true
+  # client:
+  #   stdin_open: true
+  #   tty: true
+  #   build:
+  #     context: client
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - type: bind
+  #       source: ./client
+  #       target: /app
+  #     - type: volume
+  #       target: /app/node_modules
+  #   ports:
+  #     - "8080:5173"
+  server:
     build:
-      context: client
+      context: ./server
       dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 80
+      DB_URL: mongodb://${MONGODB_ROOT_USERNAME}:${MONGODB_ROOT_PASSWORD}@db/${MONGODB_DATABASE}
+    depends_on:
+      - db
     volumes:
       - type: bind
-        source: ./client
-        target: /app
-      - type: volume
-        target: /app/node_modules
+        source: ./server/src
+        target: /app/src
     ports:
-      - "8080:5173"
+      - "3000:80"
   db:
    container_name: note-taker-db
    image: mongo:latest
