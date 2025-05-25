@@ -3,14 +3,18 @@
     <v-app>
       <v-app-bar>
         <template v-slot:prepend>
-          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon
+            @click="drawer = !drawer"
+            class="d-md-none"
+          ></v-app-bar-nav-icon>
         </template>
         <v-app-bar-title>Note taker</v-app-bar-title>
       </v-app-bar>
 
       <v-navigation-drawer
         v-model="drawer"
-        temporary
+        :temporary="$vuetify.display.smAndDown"
+        :permanent="$vuetify.display.mdAndUp"
       >
         <v-list nav>
           <v-list-item title="Navigation drawer" link></v-list-item>
@@ -30,12 +34,10 @@
 import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 
-const drawer = ref(false)
+const drawer = ref(true)
 </script>
 
-<style scoped lang="scss">
-@use "./assets/base.scss" as *;
-
+<style scoped>
 .v-application {
   min-width: 100vw;
 }
