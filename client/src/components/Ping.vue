@@ -2,12 +2,14 @@
   <div class="d-flex align-items-center gap-4">
     <v-btn
       :loading="loading"
-      color="primary"
+      :color="response === 'pong' ? 'success' : 'primary'"
       @click="pingServer"
     >
       Ping Server
     </v-btn>
-    <span v-if="response">Response: {{ response }}</span>
+    <span :class="{ 'text-error': response.includes('Error') }">
+      Response: {{ response }}
+    </span>
   </div>
 </template>
 
@@ -23,8 +25,9 @@ const pingServer = async () => {
   try {
     const { data } = await axios.get('/api/ping')
     response.value = data.message
-  } catch (error) {
-    response.value = 'Error connecting to server'
+  } catch (error: any) {
+    console.error('Ping error:', error)
+    response.value = `Error: ${error.response?.data?.message || error.message}`
   } finally {
     loading.value = false
   }
